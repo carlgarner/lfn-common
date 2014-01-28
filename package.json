@@ -1,0 +1,17 @@
+{
+  "name": "lfflib",
+  "version": "0.0.1",
+  "description": "A library to help convert information stored in the registry of Live forms or Formidable",
+  "main": "lfflib.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@bitbucket.org:carlgarner/lfflib.git"
+  },
+  "author": "Carl Garner",
+  "license": "BSD"
+}
