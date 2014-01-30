@@ -5,7 +5,8 @@
   "main": "lfflib.js",
   "dependencies": {
     "bigint": "~0.4.2",
-    "node-int64": "~0.3.0"
+    "node-int64": "~0.3.0",
+    "sprintf-js": "0.0.7"
   },
   "devDependencies": {},
   "scripts": {

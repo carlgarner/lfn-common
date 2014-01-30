@@ -1,5 +1,63 @@
 var gmp = require('bigint');
 var i64 = require('node-int64');
+var sprintf = require('sprintf-js').sprintf;
+
+exports.pattern2hex = function(pattern) {
+	var parts = pattern.split('.');
+	
+	if(parts.length != 4) {
+		return pattern;
+	}
+	
+	var hex = sprintf("0x%03x%03x%04x%03x%03x", 0, new Number(parts[0]), new Number(parts[1]), new Number(parts[2]), new Number(parts[3]));
+	
+	return hex;
+}
+
+exports.hex2pattern = function(hex) {
+	if(hex.indexOf('.') > 0) {
+		return hex;
+	}
+	
+	if(hex.substr(0, 2) == '0x') {
+		hex = hex.substr(2);
+	}
+	
+	var segment = parseInt(hex.substr(3, 3), 16);
+	var shelf = parseInt(hex.substr(6, 4), 16);
+	var book = parseInt(hex.substr(10, 3), 16);
+	var page = parseInt(hex.substr(13, 3), 16);
+	
+	return segment + '.' + shelf + '.' + book + '.' + page;
+}
+
+exports.pen2hex = function(pen) {
+	if(pen.length != 14) {
+		return 'Not a valid pen';
+	}
+	
+	var parts = pen.split('-');
+	
+	if(parts.length != 4) {
+		return 'Not a valid pen address';
+	}
+	
+	var addr = pen.replace(/-/g, '');
+	var man = adecode(addr.substr(0, 3));
+	var ser = adecode(addr.substr(3, 6));
+	var chk = adecode(addr.substr(9, 2));
+	var hex = sprintf("0x%08x%08x", man, ser);
+	
+	var h64 = new i64(hex);
+	var bii = gmp(h64);
+	var sum = bii.mod(877).toString();
+
+	if(sum != chk) {
+		return 'Invalid Pen ID - Incorrect Checksum';
+	}
+	
+	return hex;
+}
 
 exports.hex2pen = function(hex) {
 	var p1 = hex.substr(2, 8);
@@ -23,6 +81,31 @@ exports.hex2pen = function(hex) {
 	var chk = biima.substr(4, 2);
 
 	return man + '-' + ser1 + '-' + ser2 + '-' + chk;
+}
+
+function checksum(hex) {
+	var h64 = new i64(hex);
+	var bii = gmp(h64);
+	var biimod = bii.mod(877);
+	var biima = acode(biimod);
+	var chka = biima.substr(4, 2);
+	
+	return chka;
+}
+
+function adecode(s) {
+	var code_base = "ABCDEFGHJKMNPQRSTUWXYZ23456789";
+	var code_b = 30;
+	var sum = 0;
+	
+	for(var i = 0; i < s.length; i++) {
+		var c = s.substr(i, 1);
+		var pos = code_base.indexOf(c);
+		
+		sum = sum * code_b + pos;
+	}
+	
+	return sum;
 }
 
 function acode(v) {
