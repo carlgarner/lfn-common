@@ -83,16 +83,6 @@ exports.hex2pen = function(hex) {
 	return man + '-' + ser1 + '-' + ser2 + '-' + chk;
 }
 
-function checksum(hex) {
-	var h64 = new i64(hex);
-	var bii = gmp(h64);
-	var biimod = bii.mod(877);
-	var biima = acode(biimod);
-	var chka = biima.substr(4, 2);
-	
-	return chka;
-}
-
 function adecode(s) {
 	var code_base = "ABCDEFGHJKMNPQRSTUWXYZ23456789";
 	var code_b = 30;
