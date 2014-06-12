@@ -1,5 +1,5 @@
 {
-  "name": "lfflib",
+  "name": "lfn-common",
   "version": "0.0.1",
   "description": "A library to help convert information stored in the registry of Live forms or Formidable",
   "main": "lfflib.js",
@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@bitbucket.org:carlgarner/lfflib.git"
+    "url": "git@gitlab.liveforms.anoto.com:carlg/lfn-common.git"
   },
   "author": "Carl Garner",
   "license": "BSD",
