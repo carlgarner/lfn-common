@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@gitlab.liveforms.anoto.com:carlg/lfn-common.git"
+    "url": "git@gitlab.liveforms.anoto.com:nodejs/lfn-common.git"
   },
   "author": "Carl Garner",
   "license": "BSD",
